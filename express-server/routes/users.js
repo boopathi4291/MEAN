@@ -36,16 +36,10 @@ router.post('/authenticate',(req,res)=>{
           }
         jwt.verify(token, config.secret, (err, decoded) => {
           if (err) {
-            return res.json({
-              success: false,
-              message: 'Token is not valid'
-            });
+            return res.json(false);
           } else {
             req.decoded = decoded;
-            return res.json({
-                success: true,
-                message: 'Token is valid'
-              });
+            return res.json(true);
           }
         });
       } else {
@@ -55,6 +49,7 @@ router.post('/authenticate',(req,res)=>{
         });
       }
 });
+
 
 
 router.post('/login',(req,res)=>{
