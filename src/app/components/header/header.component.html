@@ -1,4 +1,5 @@
 <!-- normal bootstrap way -->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
   <!-- <a class="navbar-brand" routerLink="nav">Navbar</a> -->
   <button class="navbar-toggler" type="button"  (click)="toggleCollapsed()" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,7 +10,7 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li *ngIf=!currentUser class="nav-item">
         <a class="nav-link" routerLink="register">Register</a>
       </li>
       <li class="nav-item">
@@ -19,9 +20,12 @@
         <a class="nav-link disabled" routerLink="admin">Admin</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <div *ngIf=!currentUser class="form-inline my-2 my-lg-0">
       <a class="btn btn-outline-warning my-2 my-sm-0" routerLink="login">Sign In</a>
-    </form>
+    </div>
+    <div *ngIf=currentUser class="form-inline my-2 my-lg-0">{{currentUser}}
+        <a class="btn btn-outline-warning my-2 my-sm-0" (click)=logOut()>Sign Out</a>
+    </div>
   </div>
 </nav>
 

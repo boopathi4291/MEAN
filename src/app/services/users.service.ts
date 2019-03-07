@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Users } from "./../modals/user.modal";
 import { map } from 'rxjs/operators';
 
@@ -25,6 +25,18 @@ export class UserService {
     login(data) : Observable<any>{
         
       return  this.http.post<any>(`${this.uri}/login`, data);
+    }
+    logOut() : Observable<any>{
+        
+        return  this.http.get<any>(`${this.uri}/logout`);
+    }
+    private currentUser = new Subject<String>();
+
+    setCurrentUser(user){
+        this.currentUser.next(user);
+    }
+    getCurrentUser(): Observable<String> {
+        return this.currentUser.asObservable();
     }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "./../../services/users.service";
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 
@@ -10,11 +10,19 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private userService: UserService, private router: Router) { }
   localStorage: Storage;
+  constructor(private userService: UserService, private router: Router) {
+
+    
+   }
+ 
 
   ngOnInit() {
+    
+    if(localStorage.getItem("currentUser")){
+      localStorage.removeItem('currentUser');
+      this.userService.setCurrentUser('');
+    }
   }
 
   model: any = {};
@@ -23,9 +31,10 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(this.model).subscribe((res) => {
       if (res.success) {
-        this.router.navigate(['']);
         let currentUser: any = { "name": res.user, "token": res.token }
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        this.userService.setCurrentUser(res.user);
+        this.router.navigate(['']);
       } else {
         this.message = res.message;
         form.resetForm();

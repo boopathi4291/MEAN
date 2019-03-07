@@ -8,7 +8,7 @@ import { UnauthorizedComponent } from "./components/unauthorized/unauthorized.co
 import { AuthGuard } from './guards/authGuard';
 
 const routes: Routes = [
-  {path:'',component:HomeComponent, canActivate:[AuthGuard]},
+  {path:'',component:HomeComponent,canActivate:[AuthGuard]},
   {path:'register',component:RegisterComponent},
   {path:'login',component:LoginComponent},
   {path:'unauthorized',component:UnauthorizedComponent},

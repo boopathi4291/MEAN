@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "./../../services/users.service";
 import {  HttpHeaders}    from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Users } from "./../../modals/user.modal";
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,7 @@ export class HomeComponent implements OnInit {
   currentUser = JSON.parse(localStorage.getItem("currentUser"));
   token:any;
   httpOptions:any;
-  
+  registeredUsers:any;
   constructor(private userService:UserService) { 
     
   }
@@ -23,7 +25,10 @@ export class HomeComponent implements OnInit {
             headers: new HttpHeaders({ 'Content-Type': 'application/json',"Authorization" :"Bearer "+this.token })
           };
     }
-    this.userService.getUsers(this.httpOptions).subscribe(res => console.log(res));
+    this.userService.getUsers(this.httpOptions).subscribe((res)=>{
+      console.log(res);
+      this.registeredUsers= res;
+    } );
     
   }
 

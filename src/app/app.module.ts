@@ -39,7 +39,7 @@ import { AuthService } from './services/auth.service';
     NgbModule,
     HttpClientModule
   ],
-  providers: [UserService, AuthGuard,AuthService],
+  providers: [UserService,AuthGuard,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
