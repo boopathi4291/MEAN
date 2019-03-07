@@ -18,6 +18,8 @@ import { HomeComponent } from './components/home/home.component';
 import { MustMatchDirective } from './directives/check-match.directive';
 
 import { UserService } from "./services/users.service";
+import { AuthGuard } from './guards/authGuard';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { UserService } from "./services/users.service";
     NgbModule,
     HttpClientModule
   ],
-  providers: [UserService],
+  providers: [UserService, AuthGuard,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
