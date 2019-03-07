@@ -13,10 +13,16 @@ export class UserService {
     uri = 'http://localhost:8080/users';
     localStorage:Storage;
     currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    token = this.currentUser.token;
-     httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json',"Authorization" :"Bearer "+this.token })
-      };
+    token:any;
+    httpOptions:any;
+    if(currentUser){
+        this.token = this.currentUser.token;
+        this.httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json',"Authorization" :"Bearer "+this.token })
+          };
+    }
+    
+     
     constructor(private http: HttpClient) { }
 
     registerUser(data: Users): Observable<Users[]> {
@@ -25,7 +31,7 @@ export class UserService {
 
     }
     getUsers() {
-        return this.http.get<Users[]>(`${this.uri}/getUsers`,this.httpOptions);
+        return this.http.get<Users[]>(`${this.uri}/getUsers`);
     }
     login(data) : Observable<any>{
         
