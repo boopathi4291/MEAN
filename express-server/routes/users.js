@@ -20,7 +20,7 @@ router.post('/register',(req,res)=>{
  });
 
 
- router.get('/getUsers',(req,res)=>{
+ router.get('/getUsers',middleware.checkToken,(req,res)=>{
     Users.find({},{_id:0,__v:0},function(err,response){
         res.json(response);
 });
