@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService{
@@ -8,15 +9,21 @@ export class AuthService{
     localStorage:Storage;
     uri='http://localhost:8080/users';
     currentUser:any={};
-    checkUser(){
+    checkUser():any{
         this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if(this.currentUser){
             let token = {token:'Bearer '+this.currentUser.token};
-           return this.http.post<any>(`${this.uri}/authenticate`,token);
-        }
-        else{
-            this.router.navigate(['/login']);
-            
-        }
+            return this.isTokenValid(token);
     }
+    else{
+        this.router.navigate(['/login']);
+        
+    }
+        
+}
+    isTokenValid(token){
+       return this.http.post<boolean>(`${this.uri}/authenticate`,token);
+}
+
+
 }
