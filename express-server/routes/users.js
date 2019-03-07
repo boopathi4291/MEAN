@@ -70,7 +70,7 @@ router.post('/login',(req,res)=>{
                 
                 let token = jwt.sign({username:response.fname},
                     config.secret,
-                    { expiresIn: '10m' // expires in 1 hour
+                    { expiresIn: '10m' // expires in 10 mins
                     }
                   );
                   // return the JWT token for the future API calls
