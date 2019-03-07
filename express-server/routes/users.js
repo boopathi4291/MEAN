@@ -23,7 +23,12 @@ router.post('/register',(req,res)=>{
  router.get('/getUsers',middleware.checkToken,(req,res)=>{
     Users.find({},{_id:0,__v:0},function(err,response){
         res.json(response);
+        
 });
+});
+
+router.get('/logout',(req,res)=>{
+   res.json("success")
 });
 
 router.post('/authenticate',(req,res)=>{
@@ -65,7 +70,7 @@ router.post('/login',(req,res)=>{
                 
                 let token = jwt.sign({username:response.fname},
                     config.secret,
-                    { expiresIn: '24h' // expires in 24 hours
+                    { expiresIn: '10m' // expires in 1 hour
                     }
                   );
                   // return the JWT token for the future API calls
