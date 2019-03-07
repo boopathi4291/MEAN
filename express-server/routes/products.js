@@ -1,6 +1,6 @@
 const express = require('express');
 var router = express.Router();
-var Users = require('./../models/register');
+var Products = require('./../models/products');
 let jwt = require('jsonwebtoken');
 let config = require('./../config');
 let middleware = require('./../middleware');
@@ -20,8 +20,8 @@ router.post('/register',(req,res)=>{
  });
 
 
- router.get('/getUsers',middleware.checkToken,(req,res)=>{
-    Users.find({},{_id:0,__v:0},function(err,response){
+ router.get('/getProducts',(req,res)=>{
+    Products.find({},{_id:0,__v:0},function(err,response){
         res.json(response);
         
 });
