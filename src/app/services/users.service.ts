@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Users } from "./../modals/user.modal";
 import { map } from 'rxjs/operators';
-import {  HttpHeaders}    from '@angular/common/http';
+
 
 @Injectable({
     providedIn: 'root',
@@ -11,17 +11,6 @@ import {  HttpHeaders}    from '@angular/common/http';
 export class UserService {
 
     uri = 'http://localhost:8080/users';
-    localStorage:Storage;
-    currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    token:any;
-    httpOptions:any;
-    if(currentUser){
-        this.token = this.currentUser.token;
-        this.httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json',"Authorization" :"Bearer "+this.token })
-          };
-    }
-    
      
     constructor(private http: HttpClient) { }
 
@@ -30,12 +19,12 @@ export class UserService {
         return this.http.post<any>(`${this.uri}/register`, data);
 
     }
-    getUsers() {
-        return this.http.get<Users[]>(`${this.uri}/getUsers`);
+    getUsers(httpOptions) {
+        return this.http.get<Users[]>(`${this.uri}/getUsers`,httpOptions);
     }
     login(data) : Observable<any>{
         
-      return  this.http.post<any>(`${this.uri}/login`, data,this.httpOptions);
+      return  this.http.post<any>(`${this.uri}/login`, data);
     }
 
 }
